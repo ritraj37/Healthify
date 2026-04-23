@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Consultation - Healthify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { background: #0a0a1a; font-family: 'Roboto', sans-serif; }
+
+        .vc-header {
+            background: linear-gradient(135deg, #0188df, #0056b3);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        .vc-header .logo-text {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .vc-header .logo-text span { color: #ffd700; }
+
+        .call-info { text-align: center; color: white; }
+        .call-info h3 { font-size: 1rem; margin-bottom: 2px; }
+        .call-info p { font-size: 0.8rem; opacity: 0.85; }
+
+        .call-status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Jitsi container */
+        #jitsi-container {
+            position: fixed;
+            top: 56px; left: 0; right: 0; bottom: 0;
+            background: #1a1a2e;
+        }
+
+        #jitsi-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 56px; left: 0; right: 0; bottom: 0;
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 50;
+        }
+
+        .loading-avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0188df, #0056b3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: avatarPulse 2s infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(1,136,223,0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(1,136,223,0); }
+        }
+
+        #loading-screen h2 { font-size: 1.4rem; margin-bottom: 8px; }
+        #loading-screen p { opacity: 0.7; font-size: 0.9rem; margin-bottom: 24px; }
+
+        .loading-bar {
+            width: 200px; height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            background: #0188df;
+            border-radius: 2px;
+            animation: loadFill 2s ease-in-out forwards;
+        }
+
+        @keyframes loadFill {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Pre-call screen */
+        #precall-screen {
+            position: fixed;
+            top: 56px; left: 0; right: 0; bottom: 0;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 60;
+        }
+
+        .precall-card {
+            background: #16213e;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            max-width: 480px;
+            width: 90%;
+            border: 1px solid rgba(1,136,223,0.3);
+        }
+
+        .precall-card .doctor-avatar {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0188df, #0056b3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 16px;
+        }
+
+        .precall-card h2 { font-size: 1.5rem; margin-bottom: 6px; }
+        .precall-card .dept { color: #0188df; font-size: 0.9rem; margin-bottom: 6px; }
+        .precall-card .apt-info {
+            background: rgba(1,136,223,0.1);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .precall-card .apt-info span { display: block; margin: 4px 0; }
+
+        .jitsi-notice {
+            background: rgba(40,167,69,0.15);
+            border: 1px solid rgba(40,167,69,0.3);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.82rem;
+            color: #7dcea0;
+            margin-bottom: 20px;
+        }
+
+        .btn-join {
+            background: linear-gradient(135deg, #0188df, #0056b3);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(1,136,223,0.4); }
+
+        .btn-back {
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-back:hover { background: rgba(255,255,255,0.05); color: white; }
+
+        .permission-note {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="vc-header">
+        <a href="index.html" class="logo-text"><span>H</span>ealthify</a>
+        <div class="call-info">
+            <h3 id="headerDoctorName">Video Consultation</h3>
+            <p id="headerDept">Healthify Medical Center</p>
+        </div>
+        <div class="call-status-badge">
+            <div class="status-dot"></div>
+            <span id="statusText">Connecting...</span>
+        </div>
+    </div>
+
+    <!-- Pre-call screen -->
+    <div id="precall-screen">
+        <div class="precall-card">
+            <div class="doctor-avatar"><i class="fas fa-user-md"></i></div>
+            <h2 id="pcDoctorName">Dr. Bablu Parshad</h2>
+            <p class="dept" id="pcDept">Cardiology Consultation</p>
+
+            <div class="apt-info">
+                <span><i class="fas fa-calendar-alt"></i> &nbsp;<span id="pcDate">—</span></span>
+                <span><i class="fas fa-clock"></i> &nbsp;<span id="pcTime">—</span></span>
+                <span><i class="fas fa-user"></i> &nbsp;<span id="pcPatient">—</span></span>
+            </div>
+
+            <div class="jitsi-notice">
+                <i class="fas fa-video"></i>&nbsp;
+                Powered by <strong>Jitsi Meet</strong> — Free, secure, no account needed.<br>
+                Your camera & microphone will be requested on join.
+            </div>
+
+            <button class="btn-join" onclick="joinCall()">
+                <i class="fas fa-video"></i> Join Video Call
+            </button>
+            <button class="btn-back" onclick="window.location.href='patient-dashboard.html'">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+            <p class="permission-note">
+                <i class="fas fa-shield-alt"></i> End-to-end encrypted · No recording without consent
+            </p>
+        </div>
+    </div>
+
+    <!-- Loading screen -->
+    <div id="loading-screen" style="display:none;">
+        <div class="loading-avatar"><i class="fas fa-video"></i></div>
+        <h2>Setting up your call...</h2>
+        <p>Connecting to Jitsi Meet server</p>
+        <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+    </div>
+
+    <!-- Jitsi container -->
+    <div id="jitsi-container" style="display:none;"></div>
+
+    <!-- Jitsi Meet External API -->
+    <script src="https://meet.jit.si/external_api.js"></script>
+
+    <script>
+        let jitsiApi = null;
+
+        // Load appointment details
+        const urlParams = new URLSearchParams(window.location.search);
+        const appointmentId = urlParams.get('id');
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        const appointment = appointments.find(a => String(a.id) === String(appointmentId)) || appointments[appointments.length - 1] || {};
+
+        const doctorName = appointment.doctor || appointment.doctorName || 'Dr. Bablu Parshad';
+        const dept = appointment.specialization || appointment.department || 'General Consultation';
+        const patientData = JSON.parse(localStorage.getItem('healthifyUser') || '{}');
+        const patientName = typeof patientData === 'object' ? (patientData.firstName || patientData.name || 'Patient') : 'Patient';
+
+        // Populate pre-call screen
+        document.getElementById('pcDoctorName').textContent = doctorName;
+        document.getElementById('pcDept').textContent = dept + ' Consultation';
+        document.getElementById('pcDate').textContent = appointment.date || 'Today';
+        document.getElementById('pcTime').textContent = appointment.time || appointment.timeSlot || 'Scheduled';
+        document.getElementById('pcPatient').textContent = patientName;
+        document.getElementById('headerDoctorName').textContent = doctorName;
+        document.getElementById('headerDept').textContent = dept;
+
+        // Generate unique room name from appointment
+        function getRoomName() {
+            const base = `healthify-${dept.replace(/\s+/g, '-').toLowerCase()}`;
+            const id = appointment.id || appointmentId || Date.now();
+            return `${base}-${id}`;
+        }
+
+        function joinCall() {
+            document.getElementById('precall-screen').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex';
+
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('jitsi-container').style.display = 'block';
+                document.getElementById('statusText').textContent = 'Connected';
+                initJitsi();
+            }, 2200);
+        }
+
+        function initJitsi() {
+            const roomName = getRoomName();
+
+            const domain = 'meet.jit.si';
+            const options = {
+                roomName: roomName,
+                parentNode: document.getElementById('jitsi-container'),
+                width: '100%',
+                height: '100%',
+                configOverwrite: {
+                    startWithAudioMuted: false,
+                    startWithVideoMuted: false,
+                    enableWelcomePage: false,
+                    prejoinPageEnabled: false,
+                    disableDeepLinking: true,
+                    subject: `Healthify: ${dept} Consultation`,
+                    defaultRemoteDisplayName: doctorName,
+                    toolbarButtons: [
+                        'microphone', 'camera', 'closedcaptions',
+                        'desktop', 'fullscreen', 'fodeviceselection',
+                        'hangup', 'chat', 'raisehand',
+                        'videoquality', 'tileview', 'settings'
+                    ]
+                },
+                interfaceConfigOverwrite: {
+                    SHOW_JITSI_WATERMARK: false,
+                    SHOW_WATERMARK_FOR_GUESTS: false,
+                    SHOW_BRAND_WATERMARK: false,
+                    BRAND_WATERMARK_LINK: '',
+                    DEFAULT_BACKGROUND: '#1a1a2e',
+                    TOOLBAR_ALWAYS_VISIBLE: false,
+                    APP_NAME: 'Healthify Video Consultation',
+                    NATIVE_APP_NAME: 'Healthify',
+                    PROVIDER_NAME: 'Healthify Medical Center',
+                    LANG_DETECTION: false,
+                    HIDE_INVITE_MORE_HEADER: true,
+                },
+                userInfo: {
+                    displayName: patientName,
+                    email: typeof patientData === 'object' ? (patientData.email || '') : ''
+                }
+            };
+
+            jitsiApi = new JitsiMeetExternalAPI(domain, options);
+
+            // Event listeners
+            jitsiApi.addEventListener('readyToClose', () => {
+                endCall();
+            });
+
+            jitsiApi.addEventListener('videoConferenceLeft', () => {
+                endCall();
+            });
+
+            jitsiApi.addEventListener('participantJoined', (participant) => {
+                document.getElementById('statusText').textContent = 'In Call';
+            });
+        }
+
+        function endCall() {
+            if (jitsiApi) {
+                jitsiApi.dispose();
+                jitsiApi = null;
+            }
+            if (confirm('Call ended. Go back to dashboard?')) {
+                window.location.href = 'patient-dashboard.html';
+            } else {
+                // Show pre-call screen again
+                document.getElementById('jitsi-container').style.display = 'none';
+                document.getElementById('precall-screen').style.display = 'flex';
+                document.getElementById('statusText').textContent = 'Disconnected';
+            }
+        }
+    </script>
+</body>
+</html>

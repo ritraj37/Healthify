@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Healthify (Demo)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .payment-container {
+            max-width: 800px;
+            margin: 120px auto 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .demo-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .payment-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        .summary-row.total {
+            border-top: 2px solid #0188df;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #0188df;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method:hover, .payment-method.selected {
+            border-color: #0188df;
+            background: #f0f8ff;
+        }
+        .payment-method i {
+            font-size: 24px;
+            color: #0188df;
+            margin-bottom: 10px;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: #0188df;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .pay-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        .processing {
+            display: none;
+        }
+        .processing .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0188df;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="payment-container">
+        <div class="demo-banner">
+            <i class="fas fa-info-circle"></i>
+            DEMO MODE - No Real Payment Required | Free Testing
+        </div>
+
+        <div class="payment-header" style="text-align: center; margin-bottom: 30px;">
+            <h2><i class="fas fa-credit-card"></i> Secure Payment</h2>
+            <p>Complete your appointment booking</p>
+        </div>
+
+        <div class="payment-summary">
+            <h3><i class="fas fa-receipt"></i> Appointment Summary</h3>
+            <div class="summary-row">
+                <span>Doctor:</span>
+                <span id="doctorName">Dr. Sarah Johnson</span>
+            </div>
+            <div class="summary-row">
+                <span>Specialization:</span>
+                <span id="doctorSpec">Cardiology</span>
+            </div>
+            <div class="summary-row">
+                <span>Date:</span>
+                <span id="appointmentDate">2025-01-25</span>
+            </div>
+            <div class="summary-row">
+                <span>Time:</span>
+                <span id="appointmentTime">10:00 AM</span>
+            </div>
+            <div class="summary-row">
+                <span>Consultation Fee:</span>
+                <span>₹500</span>
+            </div>
+            <div class="summary-row">
+                <span>Platform Fee:</span>
+                <span>₹50</span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%):</span>
+                <span>₹99</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total Amount:</span>
+                <span>₹649</span>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method selected" data-method="demo">
+                <i class="fas fa-play-circle"></i>
+                <h4>Demo Payment</h4>
+                <p>Free Testing Mode</p>
+            </div>
+            <div class="payment-method" data-method="upi">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>UPI Payment</h4>
+                <p>PhonePe, GPay, Paytm</p>
+            </div>
+            <div class="payment-method" data-method="card">
+                <i class="fas fa-credit-card"></i>
+                <h4>Card Payment</h4>
+                <p>Debit/Credit Cards</p>
+            </div>
+        </div>
+
+        <button class="pay-button" onclick="processPayment()">
+            <i class="fas fa-lock"></i> Pay Securely ₹649 (Demo)
+        </button>
+
+        <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 14px; color: #2d5a2d;">
+            <i class="fas fa-shield-alt"></i>
+            Demo Mode: No real payment required. Click pay to simulate successful payment.
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="processing" id="processing">
+                <h3>Processing Payment...</h3>
+                <div class="spinner"></div>
+                <p>Please wait while we process your payment</p>
+            </div>
+            
+            <div class="success" id="success" style="display: none;">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Payment Successful!</h3>
+                <p>Your appointment has been confirmed</p>
+                <p><strong>Payment ID:</strong> <span id="paymentId">PAY123456789</span></p>
+                <div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap; justify-content:center;">
+                    <button onclick="joinVideoCall()" style="background: #0188df; color: white; border: none; padding: 12px 22px; border-radius: 8px; cursor: pointer; font-weight:600; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-video"></i> Join Video Call
+                    </button>
+                    <button onclick="redirectToDashboard()" style="background: #28a745; color: white; border: none; padding: 12px 22px; border-radius: 8px; cursor: pointer; font-weight:600;">
+                        <i class="fas fa-th-large"></i> Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load appointment details
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAppointmentDetails();
+        });
+
+        function loadAppointmentDetails() {
+            const appointmentData = JSON.parse(localStorage.getItem('pendingAppointment') || '{}');
+            
+            if (appointmentData.doctor) {
+                document.getElementById('doctorName').textContent = appointmentData.doctor;
+                document.getElementById('doctorSpec').textContent = appointmentData.specialization || 'General Medicine';
+                document.getElementById('appointmentDate').textContent = appointmentData.date;
+                document.getElementById('appointmentTime').textContent = appointmentData.time;
+            }
+        }
+
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+            });
+        });
+
+        function processPayment() {
+            const user = JSON.parse(localStorage.getItem('healthifyUser'));
+            const appointmentData = JSON.parse(localStorage.getItem('pendingAppointment') || '{}');
+            
+            if (!user) {
+                alert('Please login to continue payment');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Show payment modal
+            document.getElementById('paymentModal').style.display = 'block';
+            document.getElementById('processing').style.display = 'block';
+            document.getElementById('success').style.display = 'none';
+
+            // Simulate payment processing
+            setTimeout(() => {
+                // Generate demo payment ID
+                const paymentId = 'PAY' + Date.now();
+                document.getElementById('paymentId').textContent = paymentId;
+                
+                // Show success
+                document.getElementById('processing').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+                
+                // Book appointment with demo payment
+                bookAppointmentWithDemoPayment(appointmentData, paymentId);
+                
+            }, 3000); // 3 second delay to simulate processing
+        }
+
+        async function bookAppointmentWithDemoPayment(appointmentData, paymentId) {
+            try {
+                const token = localStorage.getItem('healthifyToken');
+                const response = await fetch('http://localhost:3000/api/appointments/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        doctorId: appointmentData.doctorId || 1,
+                        appointmentDate: appointmentData.date,
+                        appointmentTime: appointmentData.time || appointmentData.timeSlot,
+                        reason: appointmentData.reason || appointmentData.problem || 'Regular checkup',
+                        paymentId: paymentId,
+                        paymentStatus: 'demo_completed',
+                        amount: 649,
+                        videoCallEnabled: true,
+                        videoCallScheduled: true
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success || response.ok) {
+                    console.log('✅ Demo appointment booked successfully with video call');
+                    
+                    // Store appointment in localStorage for dashboard
+                    let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                    appointments.push({
+                        id: result.appointment?.id || Date.now(),
+                        doctor: appointmentData.doctor,
+                        specialization: appointmentData.specialization,
+                        date: appointmentData.date,
+                        time: appointmentData.time || appointmentData.timeSlot,
+                        reason: appointmentData.problem || 'Regular checkup',
+                        status: 'confirmed',
+                        paymentId: paymentId,
+                        amount: 649,
+                        videoCallEnabled: true,
+                        videoCallScheduled: true,
+                        bookingDate: new Date().toISOString()
+                    });
+                    localStorage.setItem('appointments', JSON.stringify(appointments));
+                    
+                    // Clear pending appointment
+                    localStorage.removeItem('pendingAppointment');
+                } else {
+                    console.error('❌ Appointment booking failed:', result.error);
+                }
+
+            } catch (error) {
+                console.error('❌ Demo payment error:', error);
+                // Still save to localStorage for demo
+                let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                appointments.push({
+                    id: Date.now(),
+                    doctor: appointmentData.doctor,
+                    specialization: appointmentData.specialization,
+                    date: appointmentData.date,
+                    time: appointmentData.time || appointmentData.timeSlot,
+                    reason: appointmentData.problem || 'Regular checkup',
+                    status: 'confirmed',
+                    paymentId: paymentId,
+                    amount: 649,
+                    videoCallEnabled: true,
+                    videoCallScheduled: true,
+                    bookingDate: new Date().toISOString()
+                });
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                localStorage.removeItem('pendingAppointment');
+            }
+        }
+
+        function redirectToDashboard() {
+            document.getElementById('paymentModal').style.display = 'none';
+            window.location.href = 'patient-dashboard.html';
+        }
+
+        function joinVideoCall() {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const latest = appointments[appointments.length - 1];
+            const id = latest ? latest.id : '';
+            document.getElementById('paymentModal').style.display = 'none';
+            window.location.href = `video-call.html?id=${id}`;
+        }
+
+        // Close modal on outside click
+        document.getElementById('paymentModal').addEventListener('click', (e) => {
+            if (e.target.id === 'paymentModal') {
+                document.getElementById('paymentModal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

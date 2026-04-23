@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://healthify.com/sitemap.xml
+
+# Disallow sensitive areas
+Disallow: /config.js
+Disallow: /js/
+Disallow: /css/
+
+# Allow important pages
+Allow: /index.html
+Allow: /about.html
+Allow: /services.html
+Allow: /ai-assistant.html
+Allow: /appointment.html
+Allow: /emergency.html
+Allow: /login.html
+Allow: /register.html
+Allow: /privacy-policy.html
+Allow: /terms-of-service.html

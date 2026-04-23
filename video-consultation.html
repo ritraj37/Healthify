@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Consultation - Healthify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .video-call-container {
+            max-width: 1200px;
+            margin: 120px auto 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .video-main {
+            position: relative;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        .video-secondary {
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 200px;
+            position: relative;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .call-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-mute { background: #28a745; }
+        .btn-mute.active { background: #dc3545; }
+        .btn-video { background: #007bff; }
+        .btn-video.active { background: #dc3545; }
+        .btn-end { background: #dc3545; }
+        .btn-screen { background: #6f42c1; }
+        .call-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .doctor-info, .patient-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #28a745;
+            margin-right: 8px;
+        }
+        .call-timer {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #0188df;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            .call-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="video-call-container">
+        <div class="call-timer" id="callTimer">00:00:00</div>
+        
+        <div class="video-grid">
+            <div class="video-main">
+                <video id="doctorVideo" autoplay muted></video>
+                <div class="video-overlay">
+                    <i class="fas fa-user-md"></i> Dr. Sarah Johnson
+                </div>
+            </div>
+            <div class="video-secondary">
+                <video id="patientVideo" autoplay muted></video>
+                <div class="video-overlay">
+                    <i class="fas fa-user"></i> You
+                </div>
+            </div>
+        </div>
+
+        <div class="call-controls">
+            <button class="control-btn btn-mute" id="muteBtn" title="Mute/Unmute">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button class="control-btn btn-video" id="videoBtn" title="Camera On/Off">
+                <i class="fas fa-video"></i>
+            </button>
+            <button class="control-btn btn-screen" id="screenBtn" title="Share Screen">
+                <i class="fas fa-desktop"></i>
+            </button>
+            <button class="control-btn btn-end" id="endBtn" title="End Call">
+                <i class="fas fa-phone-slash"></i>
+            </button>
+        </div>
+
+        <div class="call-info">
+            <div class="doctor-info">
+                <h4><i class="fas fa-user-md"></i> Doctor Information</h4>
+                <p><strong>Name:</strong> Dr. Sarah Johnson</p>
+                <p><strong>Specialization:</strong> Cardiology</p>
+                <p><strong>Status:</strong> <span class="status-indicator"></span>Online</p>
+                <p><strong>Appointment ID:</strong> <span id="appointmentId">APT-12345</span></p>
+            </div>
+            <div class="patient-info">
+                <h4><i class="fas fa-user"></i> Patient Information</h4>
+                <p><strong>Name:</strong> <span id="patientName">John Doe</span></p>
+                <p><strong>Patient ID:</strong> <span id="patientId">PAT-67890</span></p>
+                <p><strong>Appointment Time:</strong> <span id="appointmentTime">10:00 AM</span></p>
+                <p><strong>Reason:</strong> <span id="appointmentReason">Regular Checkup</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        class VideoCall {
+            constructor() {
+                this.localStream = null;
+                this.remoteStream = null;
+                this.peerConnection = null;
+                this.socket = io('http://localhost:3001'); // WebRTC signaling server
+                this.isAudioMuted = false;
+                this.isVideoOff = false;
+                this.callStartTime = Date.now();
+                
+                this.initializeCall();
+                this.setupEventListeners();
+                this.startTimer();
+            }
+
+            async initializeCall() {
+                try {
+                    // Get user media (camera and microphone)
+                    this.localStream = await navigator.mediaDevices.getUserMedia({
+                        video: { width: 1280, height: 720 },
+                        audio: true
+                    });
+                    
+                    document.getElementById('patientVideo').srcObject = this.localStream;
+                    
+                    // Setup WebRTC peer connection
+                    this.setupPeerConnection();
+                    
+                    console.log('✅ Video call initialized successfully');
+                } catch (error) {
+                    console.error('❌ Error accessing media devices:', error);
+                    alert('Please allow camera and microphone access for video consultation');
+                }
+            }
+
+            setupPeerConnection() {
+                const configuration = {
+                    iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:stun1.l.google.com:19302' }
+                    ]
+                };
+                
+                this.peerConnection = new RTCPeerConnection(configuration);
+                
+                // Add local stream to peer connection
+                this.localStream.getTracks().forEach(track => {
+                    this.peerConnection.addTrack(track, this.localStream);
+                });
+                
+                // Handle remote stream
+                this.peerConnection.ontrack = (event) => {
+                    this.remoteStream = event.streams[0];
+                    document.getElementById('doctorVideo').srcObject = this.remoteStream;
+                };
+                
+                // Handle ICE candidates
+                this.peerConnection.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        this.socket.emit('ice-candidate', event.candidate);
+                    }
+                };
+            }
+
+            setupEventListeners() {
+                // Mute/Unmute button
+                document.getElementById('muteBtn').addEventListener('click', () => {
+                    this.toggleAudio();
+                });
+                
+                // Video on/off button
+                document.getElementById('videoBtn').addEventListener('click', () => {
+                    this.toggleVideo();
+                });
+                
+                // Screen share button
+                document.getElementById('screenBtn').addEventListener('click', () => {
+                    this.shareScreen();
+                });
+                
+                // End call button
+                document.getElementById('endBtn').addEventListener('click', () => {
+                    this.endCall();
+                });
+                
+                // Socket events for signaling
+                this.socket.on('offer', async (offer) => {
+                    await this.peerConnection.setRemoteDescription(offer);
+                    const answer = await this.peerConnection.createAnswer();
+                    await this.peerConnection.setLocalDescription(answer);
+                    this.socket.emit('answer', answer);
+                });
+                
+                this.socket.on('answer', async (answer) => {
+                    await this.peerConnection.setRemoteDescription(answer);
+                });
+                
+                this.socket.on('ice-candidate', async (candidate) => {
+                    await this.peerConnection.addIceCandidate(candidate);
+                });
+            }
+
+            toggleAudio() {
+                this.isAudioMuted = !this.isAudioMuted;
+                this.localStream.getAudioTracks()[0].enabled = !this.isAudioMuted;
+                
+                const muteBtn = document.getElementById('muteBtn');
+                const icon = muteBtn.querySelector('i');
+                
+                if (this.isAudioMuted) {
+                    muteBtn.classList.add('active');
+                    icon.className = 'fas fa-microphone-slash';
+                } else {
+                    muteBtn.classList.remove('active');
+                    icon.className = 'fas fa-microphone';
+                }
+            }
+
+            toggleVideo() {
+                this.isVideoOff = !this.isVideoOff;
+                this.localStream.getVideoTracks()[0].enabled = !this.isVideoOff;
+                
+                const videoBtn = document.getElementById('videoBtn');
+                const icon = videoBtn.querySelector('i');
+                
+                if (this.isVideoOff) {
+                    videoBtn.classList.add('active');
+                    icon.className = 'fas fa-video-slash';
+                } else {
+                    videoBtn.classList.remove('active');
+                    icon.className = 'fas fa-video';
+                }
+            }
+
+            async shareScreen() {
+                try {
+                    const screenStream = await navigator.mediaDevices.getDisplayMedia({
+                        video: true,
+                        audio: true
+                    });
+                    
+                    const videoTrack = screenStream.getVideoTracks()[0];
+                    const sender = this.peerConnection.getSenders().find(s => 
+                        s.track && s.track.kind === 'video'
+                    );
+                    
+                    if (sender) {
+                        await sender.replaceTrack(videoTrack);
+                    }
+                    
+                    videoTrack.onended = () => {
+                        // Switch back to camera when screen sharing ends
+                        const cameraTrack = this.localStream.getVideoTracks()[0];
+                        sender.replaceTrack(cameraTrack);
+                    };
+                    
+                } catch (error) {
+                    console.error('Screen sharing error:', error);
+                }
+            }
+
+            endCall() {
+                if (confirm('Are you sure you want to end the consultation?')) {
+                    // Stop all tracks
+                    if (this.localStream) {
+                        this.localStream.getTracks().forEach(track => track.stop());
+                    }
+                    
+                    // Close peer connection
+                    if (this.peerConnection) {
+                        this.peerConnection.close();
+                    }
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'patient-dashboard.html';
+                }
+            }
+
+            startTimer() {
+                setInterval(() => {
+                    const elapsed = Date.now() - this.callStartTime;
+                    const hours = Math.floor(elapsed / 3600000);
+                    const minutes = Math.floor((elapsed % 3600000) / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    
+                    document.getElementById('callTimer').textContent = 
+                        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+        }
+
+        // Initialize video call when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load appointment details from URL parameters or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const appointmentId = urlParams.get('appointment') || localStorage.getItem('currentAppointment');
+            
+            if (appointmentId) {
+                document.getElementById('appointmentId').textContent = appointmentId;
+                // Load other appointment details from API
+                loadAppointmentDetails(appointmentId);
+            }
+            
+            // Initialize video call
+            new VideoCall();
+        });
+
+        async function loadAppointmentDetails(appointmentId) {
+            try {
+                const token = localStorage.getItem('healthifyToken');
+                const response = await fetch(`http://localhost:3000/api/appointments/${appointmentId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (response.ok) {
+                    const appointment = await response.json();
+                    document.getElementById('patientName').textContent = appointment.patientName;
+                    document.getElementById('patientId').textContent = appointment.patientId;
+                    document.getElementById('appointmentTime').textContent = appointment.time;
+                    document.getElementById('appointmentReason').textContent = appointment.reason;
+                }
+            } catch (error) {
+                console.error('Error loading appointment details:', error);
+            }
+        }
+    </script>
+</body>
+</html>

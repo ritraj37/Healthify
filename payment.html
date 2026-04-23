@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Healthify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .payment-container {
+            max-width: 800px;
+            margin: 120px auto 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .appointment-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        .summary-row.total {
+            border-top: 2px solid #0188df;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #0188df;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method:hover, .payment-method.selected {
+            border-color: #0188df;
+            background: #f0f8ff;
+        }
+        .payment-method i {
+            font-size: 24px;
+            color: #0188df;
+            margin-bottom: 10px;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: #0188df;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .pay-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .security-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #2d5a2d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="payment-container">
+        <div class="payment-header">
+            <h2><i class="fas fa-credit-card"></i> Secure Payment</h2>
+            <p>Complete your appointment booking with secure payment</p>
+        </div>
+
+        <div class="appointment-summary">
+            <h3><i class="fas fa-receipt"></i> Appointment Summary</h3>
+            <div class="summary-row">
+                <span>Doctor:</span>
+                <span id="doctorName">Dr. Sarah Johnson</span>
+            </div>
+            <div class="summary-row">
+                <span>Specialization:</span>
+                <span id="doctorSpec">Cardiology</span>
+            </div>
+            <div class="summary-row">
+                <span>Date:</span>
+                <span id="appointmentDate">2025-01-25</span>
+            </div>
+            <div class="summary-row">
+                <span>Time:</span>
+                <span id="appointmentTime">10:00 AM</span>
+            </div>
+            <div class="summary-row">
+                <span>Consultation Fee:</span>
+                <span>₹500</span>
+            </div>
+            <div class="summary-row">
+                <span>Platform Fee:</span>
+                <span>₹50</span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%):</span>
+                <span>₹99</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total Amount:</span>
+                <span id="totalAmount">₹649</span>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method selected" data-method="razorpay">
+                <i class="fas fa-credit-card"></i>
+                <h4>Card/UPI/Wallet</h4>
+                <p>Razorpay Secure Payment</p>
+            </div>
+            <div class="payment-method" data-method="paytm">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>Paytm</h4>
+                <p>Pay with Paytm Wallet</p>
+            </div>
+            <div class="payment-method" data-method="gpay">
+                <i class="fab fa-google-pay"></i>
+                <h4>Google Pay</h4>
+                <p>Quick UPI Payment</p>
+            </div>
+        </div>
+
+        <button class="pay-button" onclick="processPayment()">
+            <i class="fas fa-lock"></i> Pay Securely ₹649
+        </button>
+
+        <div class="security-info">
+            <i class="fas fa-shield-alt"></i>
+            Your payment is secured with 256-bit SSL encryption. 
+            We don't store your card details.
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        // Load appointment details from URL parameters
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAppointmentDetails();
+        });
+
+        function loadAppointmentDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const appointmentData = JSON.parse(localStorage.getItem('pendingAppointment') || '{}');
+            
+            if (appointmentData.doctor) {
+                document.getElementById('doctorName').textContent = appointmentData.doctor;
+                document.getElementById('doctorSpec').textContent = appointmentData.specialization || 'General Medicine';
+                document.getElementById('appointmentDate').textContent = appointmentData.date;
+                document.getElementById('appointmentTime').textContent = appointmentData.time;
+            }
+        }
+
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+            });
+        });
+
+        async function processPayment() {
+            const user = JSON.parse(localStorage.getItem('healthifyUser'));
+            const appointmentData = JSON.parse(localStorage.getItem('pendingAppointment') || '{}');
+            
+            if (!user) {
+                alert('Please login to continue payment');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const paymentData = {
+                amount: 64900, // Amount in paise (₹649)
+                currency: 'INR',
+                receipt: `apt_${Date.now()}`,
+                notes: {
+                    appointment_id: appointmentData.id || 'pending',
+                    patient_id: user.id,
+                    doctor_name: appointmentData.doctor
+                }
+            };
+
+            try {
+                // Create order on backend
+                const orderResponse = await fetch('http://localhost:3000/api/payments/create-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('healthifyToken')}`
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const order = await orderResponse.json();
+
+                if (!order.success) {
+                    throw new Error(order.error);
+                }
+
+                // Initialize Razorpay payment
+                const options = {
+                    key: 'rzp_test_1234567890', // Replace with your Razorpay key
+                    amount: order.data.amount,
+                    currency: order.data.currency,
+                    name: 'Healthify Medical Center',
+                    description: `Appointment with ${appointmentData.doctor}`,
+                    image: './images/logo.png',
+                    order_id: order.data.id,
+                    handler: function(response) {
+                        verifyPayment(response, appointmentData);
+                    },
+                    prefill: {
+                        name: `${user.firstName} ${user.lastName}`,
+                        email: user.email,
+                        contact: user.mobile
+                    },
+                    notes: {
+                        appointment_date: appointmentData.date,
+                        appointment_time: appointmentData.time
+                    },
+                    theme: {
+                        color: '#0188df'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            console.log('Payment cancelled by user');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+
+            } catch (error) {
+                console.error('Payment initialization error:', error);
+                alert('Payment initialization failed. Please try again.');
+            }
+        }
+
+        async function verifyPayment(paymentResponse, appointmentData) {
+            try {
+                // Verify payment on backend
+                const verifyResponse = await fetch('http://localhost:3000/api/payments/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('healthifyToken')}`
+                    },
+                    body: JSON.stringify({
+                        razorpay_order_id: paymentResponse.razorpay_order_id,
+                        razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                        razorpay_signature: paymentResponse.razorpay_signature,
+                        appointmentData: appointmentData
+                    })
+                });
+
+                const result = await verifyResponse.json();
+
+                if (result.success) {
+                    // Payment successful - book appointment
+                    await bookAppointmentAfterPayment(appointmentData, paymentResponse.razorpay_payment_id);
+                    
+                    // Show success message
+                    alert('Payment successful! Your appointment has been booked.');
+                    
+                    // Clear pending appointment data
+                    localStorage.removeItem('pendingAppointment');
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'patient-dashboard.html';
+                } else {
+                    throw new Error(result.error);
+                }
+
+            } catch (error) {
+                console.error('Payment verification error:', error);
+                alert('Payment verification failed. Please contact support.');
+            }
+        }
+
+        async function bookAppointmentAfterPayment(appointmentData, paymentId) {
+            try {
+                const response = await fetch('http://localhost:3000/api/appointments/book-with-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('healthifyToken')}`
+                    },
+                    body: JSON.stringify({
+                        ...appointmentData,
+                        paymentId: paymentId,
+                        paymentStatus: 'completed',
+                        amount: 649
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+
+                console.log('✅ Appointment booked successfully with payment');
+                
+            } catch (error) {
+                console.error('Appointment booking error:', error);
+                throw error;
+            }
+        }
+    </script>
+</body>
+</html>

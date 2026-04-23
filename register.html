@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Account - Healthify</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CONNECT CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <!-- header navbar section start  -->
+    <header>
+        <!-- logo name  -->
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+
+        <!-- navbar link  -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#doctor" class="nav-link"><i class="fas fa-user-md"></i> Doctors</a></li>
+                <li><a href="ai-assistant.html" class="nav-link"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                <li><a href="index.html#about" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact" class="nav-link"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="index.html#blog" class="nav-link"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="login.html" class="nav-link login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+        </nav>
+
+        <!-- Emergency contact button -->
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+
+        <div class="fas fa-bars mobile-menu"></div>
+    </header>
+    <!-- header navbar section end  -->
+
+    <div class="login-container" style="margin-top: 15rem;">
+
+        <h2>Create New Account</h2>
+
+        <form id="registerForm">
+
+            <label>Full Name</label>
+            <input type="text" pattern="[A-Za-z\s]{2,50}" title="Name should contain only letters and spaces (2-50 characters)" placeholder="Enter full name" required>
+
+            <label>Mobile Number</label>
+            <input type="tel" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" placeholder="Enter mobile number" required>
+
+            <label>Email</label>
+            <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address" placeholder="Enter email" required>
+
+            <label>Create User ID</label>
+            <input type="text" pattern="[A-Za-z0-9]{3,20}" title="User ID should be 3-20 characters (letters and numbers only)" placeholder="Choose a user ID" required>
+
+            <label>Password</label>
+            <input type="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}" title="Password must be at least 8 characters with uppercase, lowercase, and number" placeholder="Create password" required>
+
+            <button type="submit">Register</button>
+
+            <p class="link"><a href="login.html">Back to Login</a></p>
+
+        </form>
+
+    </div>
+
+    <script src="./js/main.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>

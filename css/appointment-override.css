@@ -1,0 +1,16 @@
+/* Override fixed header for appointment page */
+header {
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
+}
+
+/* Adjust page padding since header is not fixed */
+.appointment-page {
+    padding: 20px 20px 40px !important;
+}
+
+/* Ensure proper spacing */
+body {
+    padding-top: 0 !important;
+}

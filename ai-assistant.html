@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare AI Assistant</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="ai-assistant.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <!-- header navbar section start  -->
+    <header>
+        <!-- logo name  -->
+        <a href="index.html" class="logo"><span>H</span>ealthify <br><span>Y</span>our path to better Health.</a>
+
+        <!-- navbar link  -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#doctor" class="nav-link"><i class="fas fa-user-md"></i> Doctors</a></li>
+                <li><a href="ai-assistant.html" class="nav-link"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                <li><a href="index.html#about" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact" class="nav-link"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="index.html#blog" class="nav-link"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="login.html" class="nav-link login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+        </nav>
+
+        <!-- Emergency contact button -->
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+
+        <div class="fas fa-bars mobile-menu"></div>
+    </header>
+    <!-- header navbar section end  -->
+
+    <!-- AI Assistant Hero Section -->
+    <section class="ai-hero">
+        <video class="hero-video" autoplay loop muted>
+            <source src="ai-movie.mp4" type="video/mp4">
+            <source src="ai-movie.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="ai-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h1>Healthify AI Assistant</h1>
+            <p class="hero-subtitle">Your 24/7 Healthcare Companion</p>
+            <div class="ai-features">
+                <span class="feature"><i class="fas fa-brain"></i> Smart Diagnosis</span>
+                <span class="feature"><i class="fas fa-clock"></i> Instant Response</span>
+                <span class="feature"><i class="fas fa-shield-alt"></i> Secure & Private</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chat Interface -->
+    <section class="ai-chat-section">
+        <div class="chat-container">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="ai-status">
+                    <div class="status-indicator online"></div>
+                    <div class="ai-info">
+                        <h3>Dr. AI Assistant</h3>
+                        <span>Online • Ready to help</span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-btn" id="clear-chat" title="Clear Chat">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="action-btn" id="export-chat" title="Export Chat">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p><strong>Important:</strong> This AI provides general health information only and is not a substitute for professional medical advice. Always consult with a qualified healthcare provider for medical concerns.</p>
+            </div>
+
+            <!-- Quick Suggestions -->
+            <div class="quick-suggestions">
+                <h4>Quick Questions:</h4>
+                <div class="suggestions-grid">
+                    <button class="suggestion-btn" data-question="What are the symptoms of high blood pressure?">
+                        <i class="fas fa-heartbeat"></i>
+                        Blood Pressure Symptoms
+                    </button>
+                    <button class="suggestion-btn" data-question="How can I improve my sleep quality?">
+                        <i class="fas fa-bed"></i>
+                        Sleep Quality Tips
+                    </button>
+                    <button class="suggestion-btn" data-question="What should I do for a headache?">
+                        <i class="fas fa-head-side-virus"></i>
+                        Headache Relief
+                    </button>
+                    <button class="suggestion-btn" data-question="How to maintain a healthy diet?">
+                        <i class="fas fa-apple-alt"></i>
+                        Healthy Diet Tips
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chat-box">
+                <div class="welcome-message">
+                    <div class="ai-avatar-small">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>👋 Hello! I'm <strong>Healthify AI Health Assistant</strong> — your 24/7 health companion.<br><br>I can help you with general health guidance, diet tips, fitness advice, and mental health support.<br><br>⚠️ <em>I do not prescribe medicines or replace a doctor.</em> For serious symptoms, I'll always guide you to seek proper medical care.<br><br>How are you feeling today? Tell me what's on your mind! 😊</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                <div class="ai-avatar-small">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                    <input type="text" id="user-input" placeholder="Type your health question or upload an image..." maxlength="500">
+                    <div class="input-actions">
+                        <button class="input-btn" id="image-btn" title="Upload Image">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <button class="input-btn" id="voice-btn" title="Voice Input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="input-btn" id="send-btn" title="Send Message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count">0/500</span>
+                    <span class="powered-by">Powered by Healthify AI</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Capabilities Sidebar -->
+        <div class="ai-capabilities">
+            <h3>What I Can Help With</h3>
+            <div class="capability-list">
+                <div class="capability-item">
+                    <i class="fas fa-camera"></i>
+                    <div>
+                        <h4>Image Analysis</h4>
+                        <p>Upload medical images for AI analysis</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <i class="fas fa-stethoscope"></i>
+                    <div>
+                        <h4>Symptom Assessment</h4>
+                        <p>Basic symptom evaluation and guidance</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <i class="fas fa-pills"></i>
+                    <div>
+                        <h4>Medication Info</h4>
+                        <p>General medication information</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <i class="fas fa-heart"></i>
+                    <div>
+                        <h4>Health Tips</h4>
+                        <p>Wellness and prevention advice</p>
+                    </div>
+                </div>
+                <div class="capability-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <h4>Appointment Booking</h4>
+                        <p>Schedule with our doctors</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="emergency-notice">
+                <i class="fas fa-exclamation-circle"></i>
+                <h4>Medical Emergency?</h4>
+                <p>For urgent medical situations, call emergency services immediately.</p>
+                <a href="tel:911" class="emergency-btn">Call 911</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer section start  -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Company Info -->
+            <div class="footer-box">
+                <a href="index.html" class="footer-logo"><span>H</span>ealthify</a>
+                <p>Your trusted healthcare partner providing comprehensive medical services, expert consultations, and innovative AI-powered health assistance for a healthier tomorrow.</p>
+                <div class="social-links">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin-in"></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#doctor">Our Doctors</a></li>
+                    <li><a href="ai-assistant.html">AI Assistant</a></li>
+                    <li><a href="index.html#blog">Health Blog</a></li>
+                    <li><a href="login.html">Patient Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-box">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Emergency Care</a></li>
+                    <li><a href="#">Free Check-ups</a></li>
+                    <li><a href="#">Ambulance Service</a></li>
+                    <li><a href="#">Online Consultation</a></li>
+                    <li><a href="#">Health Monitoring</a></li>
+                    <li><a href="#">Vaccination</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-box">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City, HC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@healthify.com</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Emergency Services</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Healthify. All rights reserved. | Created by <span>Bablu & Team</span></p>
+        </div>
+    </footer>
+
+    <!-- Link JS -->
+    <script src="./js/main.js"></script>
+    <script src="ai-assistant.js"></script>
+</body>
+</html>

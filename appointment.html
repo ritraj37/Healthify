@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment - Healthify</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CONNECT CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="appointment.css">
+    <link rel="stylesheet" href="./css/payment-styles.css">
+    <link rel="stylesheet" href="./css/appointment-override.css">
+</head>
+
+<body>
+    <!-- header navbar section start  -->
+    <header>
+        <!-- logo name  -->
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+
+        <!-- navbar link  -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="index.html#doctor" class="nav-link"><i class="fas fa-user-md"></i> Doctors</a></li>
+                <li><a href="ai-assistant.html" class="nav-link"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                <li><a href="index.html#about" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="index.html#contact" class="nav-link"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="index.html#blog" class="nav-link"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="login.html" class="nav-link login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+        </nav>
+
+        <!-- Emergency contact button -->
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+
+        <div class="fas fa-bars mobile-menu"></div>
+    </header>
+    <!-- header navbar section end  -->
+
+    <section class="appointment-page">
+        <div class="appointment-container">
+            <div class="appointment-header">
+                <h1><i class="fas fa-calendar-plus"></i> Book Appointment</h1>
+                <p>Schedule your consultation with our expert doctors</p>
+            </div>
+
+            <div class="auth-required" id="authRequired">
+                <div class="auth-message">
+                    <i class="fas fa-lock"></i>
+                    <h3>Authentication Required</h3>
+                    <p>Please login or register to book an appointment.</p>
+                    <div class="auth-buttons">
+                        <a href="login.html" class="btn login-btn">Login</a>
+                        <a href="register.html" class="btn register-btn">Register</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="appointmentSection" style="display: none;">
+                <div class="appointment-form-container">
+                    <form id="appointmentForm" class="professional-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name"><i class="fas fa-user"></i> Full Name *</label>
+                                <input type="text" id="name" pattern="[A-Za-z\s]{2,50}" title="Name should contain only letters and spaces (2-50 characters)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="age"><i class="fas fa-birthday-cake"></i> Age *</label>
+                                <input type="number" id="age" min="1" max="120" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gender"><i class="fas fa-venus-mars"></i> Gender *</label>
+                                <select id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"><i class="fas fa-phone"></i> Phone Number *</label>
+                                <input type="tel" id="phone" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department"><i class="fas fa-stethoscope"></i> Department *</label>
+                                <select id="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Orthopedics">Orthopedics</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                    <option value="Gynecology">Gynecology</option>
+                                    <option value="Ophthalmology">Ophthalmology</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date"><i class="fas fa-calendar-alt"></i> Preferred Date *</label>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+
+                        <!-- Time Slot Selection -->
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-clock"></i> Select Time Slot *</label>
+                            <div class="time-slots" id="timeSlots">
+                                <div class="time-slot" data-time="09:00">09:00 AM</div>
+                                <div class="time-slot" data-time="10:00">10:00 AM</div>
+                                <div class="time-slot" data-time="11:00">11:00 AM</div>
+                                <div class="time-slot" data-time="12:00">12:00 PM</div>
+                                <div class="time-slot" data-time="14:00">02:00 PM</div>
+                                <div class="time-slot" data-time="15:00">03:00 PM</div>
+                                <div class="time-slot" data-time="16:00">04:00 PM</div>
+                                <div class="time-slot" data-time="17:00">05:00 PM</div>
+                            </div>
+                            <input type="hidden" id="selectedTime" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="problem"><i class="fas fa-notes-medical"></i> Problem Description *</label>
+                            <textarea id="problem" minlength="10" maxlength="500" placeholder="Please describe your symptoms or health concerns in detail (10-500 characters)" required></textarea>
+                        </div>
+
+                        <!-- Payment Information Section -->
+                        <div class="payment-info-section">
+                            <h3><i class="fas fa-credit-card"></i> Payment Information</h3>
+                            <div class="payment-summary">
+                                <div class="fee-row">
+                                    <span>Consultation Fee:</span>
+                                    <span>₹500</span>
+                                </div>
+                                <div class="fee-row">
+                                    <span>Platform Fee:</span>
+                                    <span>₹50</span>
+                                </div>
+                                <div class="fee-row">
+                                    <span>GST (18%):</span>
+                                    <span>₹99</span>
+                                </div>
+                                <div class="fee-row total">
+                                    <span>Total Amount:</span>
+                                    <span>₹649</span>
+                                </div>
+                            </div>
+                            <div class="payment-note">
+                                <i class="fas fa-info-circle"></i>
+                                Payment will be processed securely after booking confirmation
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-credit-card"></i>
+                                Proceed to Payment (₹649)
+                            </button>
+                            <p class="payment-security">
+                                <i class="fas fa-shield-alt"></i>
+                                Secure payment powered by Razorpay
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONNECT JS -->
+    <script src="./js/main.js"></script>
+    <script>
+        // Check authentication and show appropriate section
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('healthifyUser');
+            const authRequired = document.getElementById('authRequired');
+            const appointmentSection = document.getElementById('appointmentSection');
+            
+            if (isLoggedIn) {
+                authRequired.style.display = 'none';
+                appointmentSection.style.display = 'block';
+            } else {
+                authRequired.style.display = 'block';
+                appointmentSection.style.display = 'none';
+            }
+        }
+        
+        // Set temporary login for testing
+        if (!localStorage.getItem('healthifyUser')) {
+            localStorage.setItem('healthifyUser', 'true');
+        }
+        
+        // Check auth on page load
+        checkAuth();
+        
+        // Time slot selection
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                // Remove selected class from all slots
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                // Add selected class to clicked slot
+                this.classList.add('selected');
+                // Set hidden input value
+                document.getElementById('selectedTime').value = this.dataset.time;
+            });
+        });
+        
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if time slot is selected
+            const selectedTime = document.getElementById('selectedTime').value;
+            if (!selectedTime) {
+                alert('Please select a time slot');
+                return;
+            }
+            
+            // Additional validation
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            
+            if (!/^[A-Za-z\s]{2,50}$/.test(name)) {
+                alert('Please enter a valid name (letters and spaces only)');
+                return;
+            }
+            
+            if (!/^[0-9]{10}$/.test(phone)) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+            
+            if (new Date(date) <= new Date()) {
+                alert('Please select a future date for appointment');
+                return;
+            }
+            
+            const appointment = {
+                id: Date.now(),
+                name: name,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                phone: phone,
+                department: document.getElementById('department').value,
+                date: date,
+                time: selectedTime,
+                problem: document.getElementById('problem').value,
+                status: 'pending_payment',
+                bookingDate: new Date().toISOString(),
+                amount: 649,
+                videoCallEnabled: true
+            };
+            
+            // Map departments to doctors
+            const doctorMap = {
+                'Cardiology': 'Dr. Bablu Parshad',
+                'Neurology': 'Dr. Michael Chen',
+                'Orthopedics': 'Dr. Vyomita Sharma',
+                'Pediatrics': 'Dr. Emily Davis',
+                'Gynecology': 'Dr. Lisa Anderson',
+                'Ophthalmology': 'Dr. James Wilson'
+            };
+            
+            const doctorName = doctorMap[appointment.department] || 'Dr. Sarah Johnson';
+            
+            // Store appointment data for payment page
+            localStorage.setItem('pendingAppointment', JSON.stringify({
+                ...appointment,
+                doctorName: doctorName,
+                patientName: name,
+                specialization: appointment.department,
+                timeSlot: selectedTime
+            }));
+            
+            // Redirect to payment page
+            window.location.href = 'payment-demo.html';
+        });
+    </script>
+</body>
+</html>

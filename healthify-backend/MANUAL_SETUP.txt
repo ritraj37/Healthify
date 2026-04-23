@@ -1,0 +1,22 @@
+Node.js PATH not configured. Please follow these steps:
+
+1. Open Command Prompt as Administrator
+2. Run these commands:
+
+cd /d D:\Healthify\healthify-backend
+"C:\Program Files\nodejs\npm.exe" install
+"C:\Program Files\nodejs\node.exe" server.js
+
+OR
+
+1. Add Node.js to PATH:
+   - Open System Properties > Environment Variables
+   - Add C:\Program Files\nodejs to PATH
+   - Restart Command Prompt
+
+2. Then run:
+cd /d D:\Healthify\healthify-backend
+npm install
+npm start
+
+Server will start on http://localhost:3000 with Twilio notifications enabled!

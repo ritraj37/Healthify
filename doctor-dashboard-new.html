@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Healthify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .doctor-dashboard {
+            padding: 120px 20px 50px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .dashboard-header h1 {
+            color: #0188df;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .appointment-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #0188df;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .appointment-card.today {
+            border-left-color: #28a745;
+            background: linear-gradient(135deg, #f8fff9 0%, #ffffff 100%);
+        }
+        .patient-info {
+            flex: 1;
+        }
+        .patient-info h3 {
+            color: #444d53;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .patient-info p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .patient-info p i {
+            width: 20px;
+            color: #0188df;
+            margin-right: 8px;
+        }
+        .appointment-time {
+            text-align: center;
+            min-width: 80px;
+            padding: 15px;
+            background: #0188df;
+            color: white;
+            border-radius: 10px;
+        }
+        .appointment-time .time {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: block;
+        }
+        .appointment-time .date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .doctor-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn-video-call {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            min-width: 180px;
+            justify-content: center;
+        }
+        .btn-video-call:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .btn-video-call.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-view-history {
+            background: #0188df;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .status-badge.today {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-badge.upcoming {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-card i {
+            font-size: 2.5rem;
+            color: #0188df;
+            margin-bottom: 15px;
+        }
+        .stat-card h3 {
+            font-size: 2rem;
+            color: #444d53;
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+            .appointment-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .doctor-actions {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="doctor-dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="patient-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Patients</a></li>
+                <li><a href="#" class="nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+        <div class="fas fa-bars mobile-menu"></div>
+    </header>
+
+    <section class="doctor-dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1><i class="fas fa-user-md"></i> Doctor Dashboard</h1>
+                <p>Welcome, <span id="doctorName">Dr. Bablu Parshad</span></p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3 id="todayAppointments">0</h3>
+                    <p>Today's Appointments</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-video"></i>
+                    <h3 id="videoConsultations">0</h3>
+                    <p>Video Consultations</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="totalPatients">0</h3>
+                    <p>Total Patients</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <h3>4.9</h3>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Today's Appointments</h2>
+            </div>
+            
+            <div class="appointments-list" id="appointmentsList">
+                <!-- Appointments will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="./js/main.js"></script>
+    <script>
+        function loadDoctorAppointments() {
+            const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+            const today = new Date().toISOString().split('T')[0];
+            const todayAppointments = appointments.filter(apt => apt.date === today);
+            
+            const appointmentsList = document.getElementById('appointmentsList');
+            
+            // Update stats
+            document.getElementById('todayAppointments').textContent = todayAppointments.length;
+            document.getElementById('videoConsultations').textContent = todayAppointments.filter(apt => apt.videoCallEnabled).length;
+            document.getElementById('totalPatients').textContent = appointments.length;
+            
+            if (todayAppointments.length === 0) {
+                appointmentsList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">No appointments scheduled for today.</p>';
+                return;
+            }
+            
+            appointmentsList.innerHTML = '';
+            
+            todayAppointments.forEach((apt, index) => {
+                const card = document.createElement('div');
+                card.className = 'appointment-card today';
+                
+                card.innerHTML = `
+                    <div class="appointment-time">
+                        <span class="time">${apt.time}</span>
+                        <span class="date">${new Date(apt.date).toLocaleDateString('en', {month: 'short', day: 'numeric'})}</span>
+                    </div>
+                    <div class="patient-info">
+                        <h3>${apt.patientName}</h3>
+                        <p><i class="fas fa-stethoscope"></i> ${apt.department}</p>
+                        <p><i class="fas fa-phone"></i> ${apt.phone || 'Not provided'}</p>
+                        <p><i class="fas fa-notes-medical"></i> ${apt.problem}</p>
+                        ${apt.videoCallEnabled ? 
+                            '<span class="status-badge today"><i class="fas fa-video"></i> Video Consultation</span>' : 
+                            '<span class="status-badge upcoming"><i class="fas fa-hospital"></i> In-person Visit</span>'
+                        }
+                    </div>
+                    <div class="doctor-actions">
+                        ${apt.videoCallEnabled ? `
+                            <button class="btn-video-call" onclick="startVideoCall('${apt.patientName}', '${apt.date}', '${apt.time}')">
+                                <i class="fas fa-video"></i> Start Video Call
+                            </button>
+                        ` : `
+                            <button class="btn-video-call disabled">
+                                <i class="fas fa-hospital"></i> In-person Visit
+                            </button>
+                        `}
+                        <button class="btn-view-history" onclick="viewPatientHistory('${apt.patientName}')">
+                            <i class="fas fa-history"></i> View History
+                        </button>
+                    </div>
+                `;
+                
+                appointmentsList.appendChild(card);
+            });
+        }
+        
+        function startVideoCall(patientName, date, time) {
+            const roomId = `doctor_${date}_${time.replace(/[:\\s]/g, '')}`;
+            const doctorName = document.getElementById('doctorName').textContent;
+            window.open(`video-consultation.html?room=${roomId}&name=${doctorName}&role=doctor&patient=${patientName}`, '_blank');
+        }
+        
+        function viewPatientHistory(patientName) {
+            alert(`Viewing medical history for ${patientName}\\n\\nThis feature will show:\\n- Previous appointments\\n- Medical records\\n- Prescriptions\\n- Test results`);
+        }
+        
+        function logout() {
+            localStorage.removeItem('healthifyDoctor');
+            window.location.href = 'index.html';
+        }
+        
+        // Load appointments on page load
+        window.onload = function() {
+            loadDoctorAppointments();
+            
+            // Refresh every 30 seconds
+            setInterval(loadDoctorAppointments, 30000);
+        }
+    </script>
+</body>
+</html>

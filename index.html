@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthify - Your Path to Better Health | Healthcare Services</title>
+    <meta name="description" content="Healthify provides comprehensive healthcare services including emergency care, specialist consultations, AI health assistance, and preventive care. Book appointments online 24/7.">
+    <meta name="keywords" content="healthcare, medical services, doctors, emergency care, AI health assistant, appointments, hospital, clinic, health screening">
+    <meta name="author" content="Healthify Healthcare Services">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Healthify - Your Path to Better Health">
+    <meta property="og:description" content="Comprehensive healthcare services with expert doctors, emergency care, and AI health assistance.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://healthify.com">
+    <meta property="og:image" content="https://healthify.com/images/healthify-og.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Healthify - Your Path to Better Health">
+    <meta name="twitter:description" content="Comprehensive healthcare services with expert doctors, emergency care, and AI health assistance.">
+    <meta name="twitter:image" content="https://healthify.com/images/healthify-twitter.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://healthify.com">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+
+    <!-- header navbar section start  -->
+    <header>
+        <!-- logo name  -->
+        <a href="#home" class="logo">
+            <span>H</span>ealthify 
+            <br><span>Y</span>our path to better Health.
+        </a>
+
+        <!-- navbar link  -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#doctor" class="nav-link"><i class="fas fa-user-md"></i> Doctors</a></li>
+                <li><a href="services.html" class="nav-link"><i class="fas fa-stethoscope"></i> Services</a></li>
+                <li><a href="ai-assistant.html" class="nav-link"><i class="fas fa-robot"></i> AI Assistant</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="#blog" class="nav-link"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="patient-dashboard.html" class="nav-link" id="dashboardLink" style="display: none;"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="login.html" class="nav-link login-btn" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="#" class="nav-link" id="logoutLink" style="display: none;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Emergency contact button -->
+        <div class="emergency-contact">
+            <a href="tel:+15551234567" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                <span>Emergency: (555) 123-4567</span>
+            </a>
+        </div>
+
+        <div class="fas fa-bars mobile-menu"></div>
+    </header>
+    <!-- header navbar section end  -->
+
+    <!-- home section start  -->
+    <section id="home" class="home">
+        <div class="hero-container">
+            <!-- Hero video background -->
+            <div class="video-background">
+                <video autoplay loop muted>
+                    <source src="movie.mp4" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+
+            <div class="row">
+                <!-- home content  -->
+                <div class="content">
+                    <div class="hero-badge">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Trusted Healthcare Since 2020</span>
+                    </div>
+                    <h1><span>Stay</span> Safe, <span>Stay</span> Healthy.</h1>
+                    <p class="hero-subtitle">Your health is our priority. Experience world-class medical care with cutting-edge technology and compassionate professionals.</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3>10K+</h3>
+                            <p>Happy Patients</p>
+                        </div>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Expert Doctors</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24 hours</h3>
+                            <p>Emergency Care</p>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="auth-check.html" class="btn-simple">
+                            <i class="fas fa-stethoscope"></i>
+                            Book Appointment
+                        </a>
+                        <a href="ai-assistant.html" class="btn-simple">
+                            <i class="fas fa-robot"></i>
+                            AI Assistant
+                        </a>
+                    </div>
+                </div>
+
+                <!-- home images  -->
+                <div class="images">
+                    <img src="./images/home.png" alt="Healthcare Professional">
+                    <div class="floating-elements">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-user-md"></i>
+                            <span>Expert Care</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Safe & Secure</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- home section end  -->
+
+    <!-- about section start  -->
+    <section id="about" class="about">
+        <div class="about-intro">
+            <h1 class="heading">About Our Facility</h1>
+            <h3 class="title">Comprehensive Healthcare Services You Can Trust</h3>
+            <p class="about-description">Healthify is a modern web-based healthcare platform designed to make medical services more accessible, efficient, and user-friendly. It aims to solve common problems in traditional healthcare systems such as long waiting times, difficulty in finding specialists, high treatment costs, and lack of proper communication between patients and doctors.
+
+The platform is especially useful for people living in rural or remote areas, where access to quality healthcare is often limited. By using telemedicine technology, Healthify allows patients to connect with doctors anytime and from anywhere through real-time video and voice consultations.
+
+Healthify provides an all-in-one solution that includes online appointment booking, AI-based health assistance, digital medical records, and seamless communication between patients and healthcare providers. The system is designed to reduce administrative workload, improve diagnosis speed, and enhance the overall patient experience.
+
+Our goal is to build a smarter, scalable, and affordable healthcare ecosystem by combining modern web technologies, artificial intelligence, and telemedicine. In the future, Healthify aims to integrate advanced features such as intelligent diagnosis systems and wearable device support to further improve healthcare accessibility and quality.</p>
+        </div>
+
+        <!-- Key Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h4>Certified Excellence</h4>
+                <p>JCI accredited facility with international standards</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h4>Advanced Technology</h4>
+                <p>Latest medical equipment and diagnostic tools</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h4>Compassionate Care</h4>
+                <p>Patient-centered approach with personalized treatment</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h4>24/7 Availability</h4>
+                <p>Round-the-clock emergency and critical care services</p>
+            </div>
+        </div>
+
+        <div class="box-container">
+            <!-- Ambulance Services -->
+            <div class="box">
+                <div class="images">
+                    <img src="./images/about-1.png" alt="Ambulance Services">
+                    <div class="service-badge">
+                        <i class="fas fa-ambulance"></i>
+                        <span>24/7</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="service-header">
+                        <h3><i class="fas fa-ambulance"></i> Ambulance Services</h3>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9/5</span>
+                        </div>
+                    </div>
+                    <p>In an emergency, every second counts. Our fleet of advanced life support ambulances is equipped with state-of-the-art medical equipment and staffed by certified paramedics, ensuring rapid response and safe transport to our facility.</p>
+                    <div class="service-features">
+                        <span><i class="fas fa-check"></i> GPS Tracking</span>
+                        <span><i class="fas fa-check"></i> Advanced Life Support</span>
+                        <span><i class="fas fa-check"></i> Trained Paramedics</span>
+                    </div>
+                    <a href="#contact" class="button">Request Service</a>
+                </div>
+            </div>
+
+            <!-- Emergency Rooms -->
+            <div class="box">
+                <div class="images">
+                    <img src="./images/about-2.png" alt="Emergency Room">
+                    <div class="service-badge emergency">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>ER</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="service-header">
+                        <h3><i class="fas fa-hospital"></i> Emergency Department</h3>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.8/5</span>
+                        </div>
+                    </div>
+                    <p>Our emergency department operates 24/7 with specialized trauma teams ready to handle critical cases. From cardiac emergencies to severe injuries, our expert medical staff provides immediate, life-saving interventions.</p>
+                    <div class="service-features">
+                        <span><i class="fas fa-check"></i> Trauma Center Level II</span>
+                        <span><i class="fas fa-check"></i> Cardiac Care Unit</span>
+                        <span><i class="fas fa-check"></i> Rapid Response Team</span>
+                    </div>
+                    <a href="#contact" class="button">Emergency Contact</a>
+                </div>
+            </div>
+
+            <!-- Free Check-ups -->
+            <div class="box">
+                <div class="images">
+                    <img src="./images/about-3.png" alt="Health Screening">
+                    <div class="service-badge checkup">
+                        <i class="fas fa-stethoscope"></i>
+                        <span>FREE</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="service-header">
+                        <h3><i class="fas fa-heartbeat"></i> Preventive Health Screening</h3>
+                        <div class="service-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9/5</span>
+                        </div>
+                    </div>
+                    <p>Prevention is the best medicine. Our comprehensive health screening programs include vital sign monitoring, basic blood work, and health risk assessments to detect potential issues early and maintain optimal health.</p>
+                    <div class="service-features">
+                        <span><i class="fas fa-check"></i> Complete Blood Panel</span>
+                        <span><i class="fas fa-check"></i> Vital Signs Check</span>
+                        <span><i class="fas fa-check"></i> Health Risk Assessment</span>
+                    </div>
+                    <a href="#doctor" class="button">Schedule Screening</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- about section end  -->
+    
+    <!-- doctors section start  -->
+    <section id="doctor" class="doctors">
+        <div class="container">
+            <h1 class="heading">Meet Our Doctors</h1>
+            <h3 class="title">Expert Medical Professionals Dedicated to Your Health</h3>
+            
+            <div class="doctors-stats">
+                <div class="stat-item">
+                    <h4>50+</h4>
+                    <p>Specialist Doctors</p>
+                </div>
+                <div class="stat-item">
+                    <h4>15+</h4>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h4>10K+</h4>
+                    <p>Successful Treatments</p>
+                </div>
+            </div>
+
+            <div class="box-container">
+                <!-- Doctor 1 -->
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="./images/doctor-1.png" alt="Dr. Bablu Parshad">
+                        <div class="availability-badge available">
+                            <i class="fas fa-circle"></i>
+                            <span>Available</span>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-info">
+                        <div class="doctor-header">
+                            <h2>Dr. Bablu Parshad</h2>
+                            <div class="doctor-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="specialization">
+                            <i class="fas fa-stethoscope"></i>
+                            <span>Cardiologist & Internal Medicine</span>
+                        </div>
+                        
+                        <div class="experience">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>15+ Years Experience</span>
+                        </div>
+                        
+                        <div class="credentials">
+                            <span class="credential">MBBS</span>
+                            <span class="credential">MD Cardiology</span>
+                            <span class="credential">FACC</span>
+                        </div>
+                        
+                        <div class="doctor-actions">
+                            <a href="auth-check.html" class="btn-appointment">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Appointment
+                            </a>
+                            <div class="social-links">
+                                <a href="#" class="fab fa-linkedin-in"></a>
+                                <a href="#" class="fas fa-envelope"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor 2 -->
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="./images/doctor-2.jpg" alt="Dr. Vyomita Sharma">
+                        <div class="availability-badge busy">
+                            <i class="fas fa-circle"></i>
+                            <span>In Surgery</span>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-info">
+                        <div class="doctor-header">
+                            <h2>Dr. Vyomita Sharma</h2>
+                            <div class="doctor-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        
+                        <div class="specialization">
+                            <i class="fas fa-user-md"></i>
+                            <span>Orthopedic Surgeon</span>
+                        </div>
+                        
+                        <div class="experience">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>12+ Years Experience</span>
+                        </div>
+                        
+                        <div class="credentials">
+                            <span class="credential">MBBS</span>
+                            <span class="credential">MS Orthopedics</span>
+                            <span class="credential">FICS</span>
+                        </div>
+                        
+                        <div class="doctor-actions">
+                            <a href="auth-check.html" class="btn-appointment">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Appointment
+                            </a>
+                            <div class="social-links">
+                                <a href="#" class="fab fa-linkedin-in"></a>
+                                <a href="#" class="fas fa-envelope"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor 3 -->
+                <div class="doctor-card">
+                    <div class="doctor-image">
+                        <img src="./images/doctor-3.png" alt="Dr. Rituraj">
+                        <div class="availability-badge available">
+                            <i class="fas fa-circle"></i>
+                            <span>Available</span>
+                        </div>
+                    </div>
+                    
+                    <div class="doctor-info">
+                        <div class="doctor-header">
+                            <h2>Dr. Rituraj</h2>
+                            <div class="doctor-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        
+                        <div class="specialization">
+                            <i class="fas fa-brain"></i>
+                            <span>Neurologist & Neurosurgeon</span>
+                        </div>
+                        
+                        <div class="experience">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>18+ Years Experience</span>
+                        </div>
+                        
+                        <div class="credentials">
+                            <span class="credential">MBBS</span>
+                            <span class="credential">MCh Neurosurgery</span>
+                            <span class="credential">FAANS</span>
+                        </div>
+                        
+                        <div class="doctor-actions">
+                            <a href="auth-check.html" class="btn-appointment">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Appointment
+                            </a>
+                            <div class="social-links">
+                                <a href="#" class="fab fa-linkedin-in"></a>
+                                <a href="#" class="fas fa-envelope"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- doctors section end  -->
+
+    <!-- review section start  -->
+    <section id="review" class="review">
+        <div class="review-header">
+            <h1 class="heading">Patient Testimonials</h1>
+            <h3 class="title">Real Stories from Our Satisfied Patients</h3>
+            <div class="review-stats">
+                <div class="overall-rating">
+                    <div class="rating-number">4.9</div>
+                    <div class="rating-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>Based on 2,500+ reviews</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-container">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                
+                <p class="review-text">"I had an excellent experience with Healthify. The appointment booking was simple, the doctors were very attentive, and the staff made sure I felt comfortable throughout my visit. Highly recommended for anyone seeking reliable healthcare support."</p>
+                
+                <div class="patient-info">
+                    <div class="patient-image">
+                        <img src="./images/img-1.jpg" alt="Alex Johnson">
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="patient-details">
+                        <h4>Alex Johnson</h4>
+                        <span class="patient-type">Cardiology Patient</span>
+                        <span class="review-date">October 15, 2025</span>
+                    </div>
+                </div>
+                
+                <div class="treatment-info">
+                    <span class="treatment-tag">
+                        <i class="fas fa-heartbeat"></i>
+                        Heart Check-up
+                    </span>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                
+                <p class="review-text">"Prevention is better than cure — and Healthify truly follows this principle. Their complimentary basic health screenings helped me track my vitals regularly. Early detection and constant guidance kept me healthy and confident."</p>
+                
+                <div class="patient-info">
+                    <div class="patient-image">
+                        <img src="./images/img-2.jpg" alt="Sarah Wilson">
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="patient-details">
+                        <h4>Sarah Wilson</h4>
+                        <span class="patient-type">Preventive Care Patient</span>
+                        <span class="review-date">October 14, 2025</span>
+                    </div>
+                </div>
+                
+                <div class="treatment-info">
+                    <span class="treatment-tag">
+                        <i class="fas fa-shield-alt"></i>
+                        Health Screening
+                    </span>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                
+                <p class="review-text">"I loved how smooth the consultation process was. The interface is user-friendly, the reports were easy to understand, and the support team responded instantly. A smart and modern approach to healthcare."</p>
+                
+                <div class="patient-info">
+                    <div class="patient-image">
+                        <img src="./images/img-1.jpg" alt="Ahmar Khan">
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="patient-details">
+                        <h4>Ahmar Khan</h4>
+                        <span class="patient-type">Neurology Patient</span>
+                        <span class="review-date">October 16, 2025</span>
+                    </div>
+                </div>
+                
+                <div class="treatment-info">
+                    <span class="treatment-tag">
+                        <i class="fas fa-brain"></i>
+                        Neurological Consultation
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-cta">
+            <p>Have you been treated at Healthify?</p>
+            <a href="#contact" class="btn-review">Share Your Experience</a>
+        </div>
+    </section>
+    <!-- review section end  -->
+ 
+    <!-- contact section start  -->
+    <section id="contact" class="contact">
+        <div class="contact-header">
+            <h1 class="heading">Get In Touch</h1>
+            <h3 class="title">We're Here to Help You 24/7</h3>
+            <p class="contact-description">Have questions about our services? Need to schedule an appointment? Our dedicated team is ready to assist you with all your healthcare needs.</p>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="contact-info-grid">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h4>Emergency Hotline</h4>
+                <p>24/7 Emergency Services</p>
+                <a href="tel:+15551234567" class="contact-link">(555) 123-4567</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h4>Email Support</h4>
+                <p>Get answers within 2 hours</p>
+                <a href="mailto:info@healthify.com" class="contact-link">info@healthify.com</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4>Visit Our Clinic</h4>
+                <p>123 Health Street, Medical City</p>
+                <a href="#" class="contact-link">Get Directions</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h4>Working Hours</h4>
+                <p>Mon-Fri: 8AM-8PM</p>
+                <span class="contact-link">Sat-Sun: 9AM-6PM</span>
+            </div>
+        </div>
+
+        <div class="contact-main">
+            <!-- Contact Form -->
+            <div class="form-section">
+                <div class="form-header">
+                    <h3>Send Us a Message</h3>
+                    <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+                </div>
+                
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" pattern="[A-Za-z]{2,25}" title="First name should contain only letters (2-25 characters)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" pattern="[A-Za-z]{2,25}" title="Last name should contain only letters (2-25 characters)" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="appointment">Book Appointment</option>
+                            <option value="emergency">Emergency Inquiry</option>
+                            <option value="general">General Question</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="insurance">Insurance Query</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" minlength="20" maxlength="1000" placeholder="Please describe your inquiry in detail (20-1000 characters)..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">I agree to the <a href="privacy-policy.html">Privacy Policy</a> and consent to being contacted by Healthify.</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Image -->
+            <div class="contact-image">
+                <img src="./images/form.png" alt="Healthcare Professional">
+                <div class="image-overlay">
+                    <div class="response-time">
+                        <i class="fas fa-clock"></i>
+                        <span>Average Response Time: 2 Hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- contact section end  -->
+
+
+    <!-- blog section start  -->
+    <section id="blog" class="blog">
+        <div class="blog-header">
+            <h1 class="heading">Health & Wellness Blog</h1>
+            <h3 class="title">Expert Insights for Your Better Health Journey</h3>
+            <p class="blog-description">Stay informed with the latest health tips, medical breakthroughs, and wellness advice from our team of healthcare professionals.</p>
+        </div>
+
+        <!-- Blog Categories -->
+        <div class="blog-categories">
+            <button class="category-btn active" data-category="all">All Articles</button>
+            <button class="category-btn" data-category="cardiology">Cardiology</button>
+            <button class="category-btn" data-category="prevention">Prevention</button>
+            <button class="category-btn" data-category="nutrition">Nutrition</button>
+            <button class="category-btn" data-category="wellness">Wellness</button>
+            <button class="category-btn" data-category="heart">Heart Diseases</button>
+            <button class="category-btn" data-category="babycare">Baby Care</button>
+        </div>
+
+        <div class="box-container">
+            <!-- Blog Post 1 -->
+            <article class="blog-card" data-category="cardiology">
+                <div class="blog-image">
+                    <img src="./images/blog 1.png" alt="Heart Health Tips">
+                    <div class="blog-category-tag cardiology">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Cardiology</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>5 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Bablu Parshad
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 20, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">10 Essential Heart Health Tips for a Stronger Tomorrow</a></h2>
+                    
+                    <p>Discover evidence-based strategies to maintain optimal cardiovascular health. From dietary choices to exercise routines, learn how small lifestyle changes can significantly reduce your risk of heart disease and improve your overall well-being.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">Heart Health</span>
+                        <span class="tag">Prevention</span>
+                        <span class="tag">Lifestyle</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn" onclick="openArticle('heart-health')">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 -->
+            <article class="blog-card" data-category="prevention">
+                <div class="blog-image">
+                    <img src="./images/blog 2.png" alt="COVID-19 Vaccination">
+                    <div class="blog-category-tag prevention">
+                        <i class="fas fa-shield-virus"></i>
+                        <span>Prevention</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>3 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Yogita Singh
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 18, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">COVID-19 Vaccination: Your Shield Against the Pandemic</a></h2>
+                    
+                    <p>Stay protected with our comprehensive vaccination program. Learn about the latest vaccine updates, booster recommendations, and how our certified medical team ensures safe, effective immunization for you and your family.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">COVID-19</span>
+                        <span class="tag">Vaccination</span>
+                        <span class="tag">Safety</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card" data-category="wellness">
+                <div class="blog-image">
+                    <img src="./images/blog 3.png" alt="Diabetes Management">
+                    <div class="blog-category-tag wellness">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Wellness</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>7 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Rituraj
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 15, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">Mastering Diabetes: A Complete Management Guide</a></h2>
+                    
+                    <p>Take control of your diabetes with expert guidance from our endocrinology team. Discover advanced treatment options, lifestyle modifications, and monitoring techniques that help you maintain optimal blood sugar levels and live a fulfilling life.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">Diabetes</span>
+                        <span class="tag">Management</span>
+                        <span class="tag">Treatment</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Blog Post 4 - Nutrition -->
+            <article class="blog-card" data-category="nutrition">
+                <div class="blog-image">
+                    <img src="./images/blog 11.jpg" alt="Healthy Nutrition Guide">
+                    <div class="blog-category-tag nutrition">
+                        <i class="fas fa-apple-alt"></i>
+                        <span>Nutrition</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>6 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Ahmar Khan
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 12, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">Complete Guide to Balanced Nutrition for Optimal Health</a></h2>
+                    
+                    <p>Learn the fundamentals of proper nutrition with our comprehensive guide. Discover essential nutrients, meal planning strategies, and dietary recommendations that support your overall health and wellness goals for a vibrant life.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">Nutrition</span>
+                        <span class="tag">Diet</span>
+                        <span class="tag">Healthy Eating</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Blog Post 5 - Heart Diseases -->
+            <article class="blog-card" data-category="heart">
+                <div class="blog-image">
+                    <img src="./images/blog 21.jpeg" alt="Heart Disease Prevention">
+                    <div class="blog-category-tag heart">
+                        <i class="fas fa-heart"></i>
+                        <span>Heart Diseases</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>8 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Vyomita Sharma
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 10, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">Understanding Heart Disease: Prevention and Early Detection</a></h2>
+                    
+                    <p>Learn about the most common heart diseases, their warning signs, and proven prevention strategies. Our cardiology experts share essential knowledge about maintaining heart health and recognizing symptoms that require immediate medical attention.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">Heart Disease</span>
+                        <span class="tag">Prevention</span>
+                        <span class="tag">Cardiology</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Blog Post 6 - Baby Care -->
+            <article class="blog-card" data-category="babycare">
+                <div class="blog-image">
+                    <img src="./images/blog 31.jpg" alt="Baby Care Guide">
+                    <div class="blog-category-tag babycare">
+                        <i class="fas fa-baby"></i>
+                        <span>Baby Care</span>
+                    </div>
+                    <div class="read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>10 min read</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="author">
+                            <i class="fas fa-user-md"></i>
+                            Dr. Ankita Raj
+                        </span>
+                        <span class="date">
+                            <i class="fas fa-calendar"></i>
+                            Oct 8, 2025
+                        </span>
+                    </div>
+                    
+                    <h2><a href="#">Complete Baby Care Guide: From Newborn to 12 Months</a></h2>
+                    
+                    <p>Essential baby care tips for new parents covering feeding, sleeping, hygiene, and developmental milestones. Our pediatric specialists provide comprehensive guidance to ensure your baby's healthy growth and development during the first year.</p>
+                    
+                    <div class="blog-tags">
+                        <span class="tag">Baby Care</span>
+                        <span class="tag">Pediatrics</span>
+                        <span class="tag">Parenting</span>
+                    </div>
+                    
+                    <a href="#" class="read-more-btn">
+                        <span>Read Full Article</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="blog-cta">
+            <h3>Want to Stay Updated?</h3>
+            <p>Subscribe to our newsletter for the latest health tips and medical insights.</p>
+            <a href="#contact" class="btn-newsletter">Subscribe Now</a>
+        </div>
+    </section>
+    <!-- blog section end  -->
+
+    <!-- footer section start  -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Company Info -->
+            <div class="footer-box">
+                <a href="#" class="footer-logo"><span>H</span>ealthify</a>
+                <p>Your trusted healthcare partner providing comprehensive medical services, expert consultations, and innovative AI-powered health assistance for a healthier tomorrow.</p>
+                <div class="social-links">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin-in"></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#doctor">Our Doctors</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="ai-assistant.html">AI Assistant</a></li>
+                    <li><a href="#blog">Health Blog</a></li>
+                    <li><a href="emergency.html">Emergency</a></li>
+                    <li><a href="login.html">Patient Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal & Support -->
+            <div class="footer-box">
+                <h3>Legal & Support</h3>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="#contact">Contact Support</a></li>
+                    <li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+                    <li><a href="auth-check.html">Book Appointment</a></li>
+                    <li><a href="register.html">Patient Registration</a></li>
+                    <li><a href="emergency.html">Emergency Services</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-box">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City, HC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@healthify.com</p>
+                    <p><i class="fas fa-clock"></i> 24/7 Emergency Services</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Healthify. All rights reserved. | Created by <span>Bablu & Team</span></p>
+        </div>
+    </footer>
+
+
+    <!-- Article Modal -->
+    <div class="article-modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Article Title</h2>
+                <span class="close-modal" onclick="closeArticle()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbotWidget">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="chatbot-popup" id="chatbotPopup">
+            <div class="chatbot-header">
+                <h4>AI Health Assistant</h4>
+                <button class="close-btn" id="closeChatbot">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="bot-message">
+                    <p>Hi! I'm your AI health assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <button id="imageBtn" title="Upload Image"><i class="fas fa-camera"></i></button>
+                <input type="text" id="chatbotInput" placeholder="Type your message or upload an image...">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- config file -->
+    <script src="./config.js"></script>
+
+    <!-- custom js file link  -->
+    <script src="./js/main.js"></script>
+    <script src="./js/database-integration.js"></script>
+</body>
+
+</html>

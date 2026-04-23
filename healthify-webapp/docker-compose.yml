@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: healthify-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: healthify
+      MYSQL_USER: healthify_user
+      MYSQL_PASSWORD: ${DB_PASSWORD:-healthify_pass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - healthify-network
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Healthify Web Application
+  app:
+    build: .
+    container_name: healthify-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: healthify
+      DB_USER: healthify_user
+      DB_PASSWORD: ${DB_PASSWORD:-healthify_pass}
+      JAVA_OPTS: "-Xmx1g -Xms512m -XX:+UseG1GC"
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_logs:/usr/local/tomcat/logs
+    networks:
+      - healthify-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Nginx Reverse Proxy (Optional for production)
+  nginx:
+    image: nginx:alpine
+    container_name: healthify-nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - healthify-network
+    profiles:
+      - production
+
+volumes:
+  db_data:
+    driver: local
+  app_logs:
+    driver: local
+
+networks:
+  healthify-network:
+    driver: bridge
